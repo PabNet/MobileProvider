@@ -1,0 +1,49 @@
+﻿*
+{
+  box-sizing: border-box;
+}
+
+html, body
+{
+  padding: 0;
+  margin: 0;
+  font-family: verdana, arial, sans-serif;
+}
+
+body
+{
+  font-size: 1.1em;
+  display: flex;
+  flex-direction: column;
+}
+
+main
+{
+  color: #fff;
+  background: #062034;
+  display: flex;
+  flex-direction: column;
+}
+
+header, footer
+{
+  color: #fff;
+  text-align: center;
+  flex: 0 0 4em;
+  background-color: #37474f;
+}
+
+@media screen and (min-width: 600px)
+{
+
+  body
+  {
+    min-height: 100vh;
+  }
+  main
+  {
+    flex-direction: row;
+    min-height: 100%;
+    flex: 1 1 auto;
+  }
+}

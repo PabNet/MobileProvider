@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Вход";
+}
+@model MobileProviderSystem.Models.ViewModels.AuthorizationModel
+
+<link rel="stylesheet" href="~/css/formStyle.css">
+<link rel="stylesheet" href="~/css/authorizationStyle.css">
+
+<fieldset>
+
+    <legend>
+        Авторизация
+    </legend>
+
+    <form method="post">
+
+        <label for="Login">Логин</label>
+        <input type="text"
+               required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
+               autocomplete="off"
+               autofocus
+               name="Login" id="Login">
+
+        <label for="Password">Пароль</label>
+        <input type="password"
+               required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               name="Password" id="Password">
+
+        <button type="submit">Войти</button> <br>
+        <a href="~/Account/Registration" id="RegistrationReference">Регистрация</a>
+
+    </form>
+
+</fieldset>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--@{
+    //ViewData["Title"] = "Каталог товаров";
+}
+<fieldset>
+
+    <legend>
+        Авторизация
+    </legend>
+
+    <form method="post" action="~/Home/Alert">
+
+        <label for="Login">Логин</label>
+        <input type="text"
+               required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
+               autocomplete="off"
+               autofocus
+               name="Login" id="Login">
+
+        <label for="Password">Пароль</label>
+        <input type="password"
+               required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               name="Password" id="Password">
+
+        <button type="submit">Войти</button> <br>
+        <span id="RegistrationReference">Регистрация</span>
+
+    </form>
+
+</fieldset>-->

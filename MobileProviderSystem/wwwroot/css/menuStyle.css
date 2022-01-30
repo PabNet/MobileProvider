@@ -1,0 +1,22 @@
+﻿.menu {
+    width: 100%;
+    display: table;
+}
+.menu ul {
+    display: table-row;
+}
+.menu li {
+    background: #062034;
+    display: table-cell;
+    padding: 6.5em 1em 2em;
+    text-align: center;
+}
+.menu ul li:hover, .menu a:hover
+{
+    background: #37474f;
+    cursor: pointer;
+}
+img
+{
+    display: block;
+}

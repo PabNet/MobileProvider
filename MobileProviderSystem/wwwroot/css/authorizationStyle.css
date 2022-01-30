@@ -1,0 +1,32 @@
+﻿fieldset
+{
+    height: 18em;
+    margin: 4em 14em 1em;
+}
+
+#RegistrationReference
+{
+    color: #fff;
+    margin: 2em 30em 0.5em 30em;
+    font-size: x-small;
+}
+
+#RegistrationReference:hover
+{
+    color: #37474f;
+    cursor: pointer;
+}
+
+a
+{
+    text-decoration: none;
+}
+input
+{
+    margin: 0 2em 2em 0;
+}
+button[type="submit"]
+{
+    margin: 2em 15em 0.5em 15em;
+}
+

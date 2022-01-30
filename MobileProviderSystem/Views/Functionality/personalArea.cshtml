@@ -1,0 +1,45 @@
+﻿@model MobileProviderSystem.Models.Entities.User
+@{
+    ViewData["Title"] = "Личный кабинет";
+}
+
+<link rel="stylesheet" href="~/css/formStyle.css">
+<link rel="stylesheet" href="~/css/registrationStyle.css">
+
+<fieldset style="height: 20em; margin: 3em 14em 1em;">
+
+    <legend>
+        Редактирование данных
+    </legend>
+
+    <form method="post" asp-route-id="@Model.Id">
+        <input name="AccountId" value="@Model.AccountId" style="display: none;">
+
+        <label for="FIO">ФИО</label>
+        <input type="text"
+               required pattern="^[А-ЯЁ][а-яё]+((-[А-ЯЁ][а-яё]+)?)+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+$"
+               autocomplete="off"
+               autofocus
+               title="Каждое слово вводится с большой буквы и разделяется пробелом"
+               name="Fio" id="FIO" value="@Model.Fio">
+
+        <label for="PhoneNumber">Номер телефона</label>
+        <input type="text"
+               autocomplete="off"
+               required pattern="^(25|29|33|44)\d{7}$"
+               title="Номер телефона указывается с кодом мобильного оператора и без кода страны"
+               name="PhoneNumber" id="PhoneNumber" value="@Model.PhoneNumber">
+
+        <label for="Email">Электронная почта</label>
+        <input type="text"
+               autocomplete="off"
+               required pattern="^^([a-z0-9_-]+\.)*[a-z0-9_-]+@@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"
+               title="Электронная почта указывается в полном виде"
+               name="Email" id="Email" value="@Model.Email">
+
+        <button type="submit">Изменить</button>
+
+
+    </form>
+
+</fieldset>

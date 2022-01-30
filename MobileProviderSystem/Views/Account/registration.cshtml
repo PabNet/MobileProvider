@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Регистрация аккаунта";
+}
+@model MobileProviderSystem.Models.ViewModels.RegistrationModel
+<link rel="stylesheet" href="~/css/registrationStyle.css">
+<link rel="stylesheet" href="~/css/formStyle.css">
+<fieldset>
+
+       <legend>
+              Регистрация
+       </legend>
+
+       <form method="post" action="~/Account/Registration">
+
+              <label for="FIO">ФИО</label>
+              <input type="text"
+                     required pattern="^[А-ЯЁ][а-яё]+((-[А-ЯЁ][а-яё]+)?)+ [А-ЯЁ][а-яё]+ [А-ЯЁ][а-яё]+$"
+                     autocomplete="off"
+                     autofocus
+                     title="Каждое слово вводится с большой буквы и разделяется пробелом"
+                     name="FIO" id="FIO">
+
+              <label for="PhoneNumber">Номер телефона</label>
+              <input type="text"
+                     autocomplete="off"
+                     required pattern="^(25|29|33|44)\d{7}$"
+                     title="Номер телефона указывается с кодом мобильного оператора и без кода страны"
+                     name="PhoneNumber" id="PhoneNumber">
+
+              <label for="Email">Электронная почта</label>
+              <input type="text"
+                     autocomplete="off"
+                     required pattern="^^([a-z0-9_-]+\.)*[a-z0-9_-]+@@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$"
+                     title="Электронная почта указывается в полном виде"
+                     name="Email" id="Email">
+
+              <label for="Login">Логин</label>
+              <input type="text"
+                     required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
+                     title="Логин должен быть не менее 8 и не более 20 символов,
+                            а также может содержать цифры, буквы латинского алфавита разного регистра"
+                     autocomplete="off"
+                     name="Login" id="Login">
+
+              <label for="Password">Пароль</label>
+              <input type="password"
+                     required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+              title="Пароль должен быть не менее 8 символов и может содержать буквы латинского алфавита разного регистра, цифры и специальные символы"
+                     name="Password" id="Password">
+
+              <label for="Password">Повторите пароль</label>
+              <input type="password"
+                     required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+              title="Пароль должен быть не менее 8 символов и может содержать буквы латинского алфавита разного регистра, цифры и специальные символы"
+                     name="ConfirmPassword" id="ConfirmPassword">
+
+              <button type="submit">Зарегистрироваться</button>
+
+       </form>
+
+</fieldset>

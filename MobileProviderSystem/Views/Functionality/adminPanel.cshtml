@@ -1,0 +1,44 @@
+﻿@model IEnumerable<MobileProviderSystem.Models.Entities.User>
+@{
+    ViewData["Title"] = "Панель администратора";
+}
+
+<link rel="stylesheet" href="~/css/contactsStyle.css">
+
+<table>
+
+    <caption><h2>Пользователи приложения</h2></caption>
+
+    <thead>
+    
+    <tr>
+        <th>ФИО</th>
+        <th>Hомер телефона</th>
+        <th>Электронная почта</th>
+        <th>Роль</th>
+    </tr>
+    
+    </thead>
+
+    <tbody>
+    
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Fio</td>
+            <td>@("+375")@user.PhoneNumber</td>
+            <td>@user.Email</td>
+            <td>
+                <select>
+                    @foreach (var role in ViewBag.Roles)
+                    {
+                        <option value="@role.RoleName">@role.RoleName</option> 
+                    }
+                </select>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+
+</table>

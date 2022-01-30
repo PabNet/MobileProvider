@@ -1,0 +1,13 @@
+﻿fieldset
+{
+    height: 27em;
+    margin: 0.5em 14em 1em;
+}
+input
+{
+    margin: 0 2em 1em 0;
+}
+button[type="submit"]
+{
+    margin: 0.5em 15em 0.5em 15em;
+}

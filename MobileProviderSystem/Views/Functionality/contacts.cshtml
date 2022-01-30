@@ -1,0 +1,39 @@
+﻿@model IEnumerable<MobileProviderSystem.Models.Entities.SocialNetworkReference>
+@{
+    ViewData["Title"] = "Контактные данные";
+}
+
+<link rel="stylesheet" href="~/css/contactsStyle.css">
+
+<table>
+
+    <caption><h2>Контактные данные</h2></caption>
+
+    <thead>
+    
+    <tr>
+        <th>Адрес салона</th>
+        <th>Рабочий номер телефона</th>
+        <th>Рабочая электронная почта</th>
+        <th>Социальные сети</th>
+    </tr>
+    
+    </thead>
+
+    <tbody>
+    
+    @foreach (var socialNetworkReference in Model)
+    {
+        <tr>
+            <td>@socialNetworkReference.Contact.Address</td>
+            <td>@("+375")@socialNetworkReference.Contact.PhoneNumber</td>
+            <td>@socialNetworkReference.Contact.Email</td>
+            <td>
+                @socialNetworkReference.SocialNetwork.NetworkName: @socialNetworkReference.Reference<br>
+            </td>
+        </tr>
+    }
+
+    </tbody>
+
+</table>
