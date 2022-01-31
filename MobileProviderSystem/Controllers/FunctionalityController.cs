@@ -69,7 +69,9 @@ namespace MobileProviderSystem.Controllers
 
         public void DeleteUser(ushort UserId)
         {
-            this._dbContext.Users.Remove(this._dbContext.Users.First(u=>u.Id == UserId));
+            User user = this._dbContext.Users.First(u => u.Id == UserId);
+            this._dbContext.Users.Remove(user);
+            this._dbContext.Accounts.Remove(this._dbContext.Accounts.First(a => a.Id == user.AccountId));
             this._dbContext.SaveChanges();
             
         }
