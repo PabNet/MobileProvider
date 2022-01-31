@@ -6,9 +6,6 @@
     background: #4c6379;
     border: 4px solid #2f3066;
     box-shadow: 0 0 5px 6px #0e1e39;
-    animation: Animation 1s;
-    top: 31%;
-    left: 33%;
     width: 30%;
     height: 20%;
 }
@@ -31,8 +28,8 @@
 
 select
 {
-    width: 80%;
-    height: 30%;
+    width: 90%;
+    height: 50%;
     border-radius: 3px;
     margin: 10% 5% 0;
 }
@@ -51,7 +48,7 @@ button
     width: 80%;
     height: 5%;
 }
-@keyframes Animation
+@keyframes InputAnimation
 {
     from
     {
@@ -63,4 +60,9 @@ button
         top: 31%;
         left: 33%;
     }
+}
+
+.Input
+{
+    animation: InputAnimation 1s;
 }

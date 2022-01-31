@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using Microsoft.EntityFrameworkCore;
 using MobileProviderSystem.Models.Entities;
 
@@ -11,7 +10,6 @@ namespace MobileProviderSystem.Data
         public DbSet<Role> Roles { get; set; } = null!;
         public DbSet<User> Users { get; set; } = null!;
         public DbSet<Contact> Contacts { get; set; } = null!;
-        public DbSet<SocialNetwork> SocialNetworks { get; set; } = null!;
         public DbSet<Description> Descriptions { get; set; } = null!;
 
         public MobileProviderContext(DbContextOptions<MobileProviderContext> options)
@@ -108,6 +106,11 @@ namespace MobileProviderSystem.Data
                         SystemDescription = "Будучи ответственным за вопросы мобильной связи, вы должны консультировать клиентов касаемо тарифов, задолженностей и так далее." },
                 }
             );
+            
+            modelBuilder.Entity<User>()
+                .HasOne(p => p.Account)
+                .WithOne(t => t.User)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

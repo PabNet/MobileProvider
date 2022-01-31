@@ -19,11 +19,14 @@
                required pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
                autocomplete="off"
                autofocus
+               title="Логин должен быть не менее 8 и не более 20 символов,
+                      а также может содержать цифры, буквы латинского алфавита разного регистра"
                name="Login" id="Login">
 
         <label for="Password">Пароль</label>
         <input type="password"
                required pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+               title="Пароль должен быть не менее 8 символов и может содержать буквы латинского алфавита разного регистра, цифры и специальные символы"
                name="Password" id="Password">
 
         <button type="submit">Войти</button> <br>

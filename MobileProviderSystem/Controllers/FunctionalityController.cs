@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using MobileProviderSystem.AdditionalOptions;
 using MobileProviderSystem.Data;
 using MobileProviderSystem.Enums;
 using MobileProviderSystem.Models.Entities;
@@ -35,7 +30,7 @@ namespace MobileProviderSystem.Controllers
         [Authorize(Roles = "Администратор")]
         public IActionResult AdminPanel()
         {
-            List<string> roles = new List<string>();
+            List<string> roles = new List<string>() { "" };
             foreach (var role in this._dbContext.Roles.ToList())
             {
                 if (role.RoleName != "Администратор")
@@ -72,12 +67,11 @@ namespace MobileProviderSystem.Controllers
                 .Include(n => n.SocialNetwork).ToList());
         }
 
-        public IActionResult DeleteUser(ushort UserId)
+        public void DeleteUser(ushort UserId)
         {
             this._dbContext.Users.Remove(this._dbContext.Users.First(u=>u.Id == UserId));
             this._dbContext.SaveChanges();
-
-            return RedirectToAction("MainMenu", "Home");
+            
         }
 
         [Authorize(Roles = "Администратор")]
@@ -108,6 +102,14 @@ namespace MobileProviderSystem.Controllers
             role.RoleName = UpdateDates[(int) Indices.First];
             this._dbContext.Roles.Update(role);
             this._dbContext.SaveChanges();
+        }
+
+        public void UpdateRoleForUser(List<string> UpdateRoleDates)
+        {
+            Role role = this._dbContext.Roles.First(r => r.RoleName == UpdateRoleDates[(int) Indices.First]);
+            User user = this._dbContext.Users.First(u => u.Id == ushort.Parse(UpdateRoleDates[(int) Indices.Null]));
+            this._dbContext.Database
+                .ExecuteSqlInterpolated($"UPDATE Accounts SET RoleId = {role.Id} WHERE AccountId = {user.AccountId}");
         }
         
         

@@ -1,15 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using MobileProviderSystem.AdditionalOptions;
-using MobileProviderSystem.Data;
-using MobileProviderSystem.Models.Entities;
-using MobileProviderSystem.Enums;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace MobileProviderSystem.Controllers
 {

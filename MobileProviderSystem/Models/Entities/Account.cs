@@ -18,6 +18,6 @@ namespace MobileProviderSystem.Models.Entities
         public ushort? RoleId { get; set; }
 
         public Role Role { get; set; } = null!;
-        public User? User { get; set; }
+        public User User { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -32,65 +31,43 @@ namespace MobileProviderSystem.Controllers
         public async Task<IActionResult> Registration(RegistrationModel model)
         {
             IActionResult result = View();
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                Account account = await _context.Accounts.FirstOrDefaultAsync(u => u.Login == model.Login);
+                if (account == null)
                 {
-                    Account account = await _context.Accounts.FirstOrDefaultAsync(u => u.Login == model.Login);
-                    if (account == null)
+                    account = new Account()
                     {
-                        account = new Account()
+                        Login = model.Login, Password = model.Password
+                    };
+                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == "Клиент");
+                    if (userRole != null)
+                        account.Role = userRole;
+             
+                    _context.Accounts.Add(account);
+                    if (await _context.SaveChangesAsync() != 0)
+                    {
+                        User user = new User()
                         {
-                            Login = model.Login, Password = model.Password
+                            Email = model.Email,
+                            PhoneNumber = model.PhoneNumber,
+                            Fio = model.Fio,
+                            Account = account
                         };
-                        Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == "Клиент");
-                        if (userRole != null)
-                            account.Role = userRole;
- 
-                        _context.Accounts.Add(account);
+                        _context.Users.Add(user);
+            
                         if (await _context.SaveChangesAsync() != 0)
                         {
-                            User user = new User()
-                            {
-                                Email = model.Email,
-                                PhoneNumber = model.PhoneNumber,
-                                Fio = model.Fio,
-                                Account = account
-                            };
-                            _context.Users.Add(user);
+                            await Authenticate(account);
+                                            
+                            result =  RedirectToAction("Authorization", "Account");
+                        }
+                                        
+                    }
 
-                            if (await _context.SaveChangesAsync() != 0)
-                            {
-                                await Authenticate(account);
-                                
-                                result =  RedirectToAction("Authorization", "Account");
-                            }
-                            else
-                            {
-                                throw new Exception();
-                            }
-                        
-                        }
-                        else
-                        {
-                            throw new Exception();
-                        }
-                    
-                    }
-                    else
-                    {
-                        throw new Exception();
-                    }
                 }
             }
-            catch (Exception)
-            {
-                result = RedirectToAction("ErrorPage", "Error",
-                    new {
-                        TypeError = "Ошибка регистрации в системе" ,
-                        Message = "Не удалось зарегистрировать аккаунт. Скорее всего такой аккаунт уже существует."
-                    });
-            }
+                            
 
             return result;
         }
@@ -114,14 +91,6 @@ namespace MobileProviderSystem.Controllers
                     await Authenticate(user);
  
                     return RedirectToAction("MainMenu", "Home");
-                }
-                else
-                {
-                    return RedirectToAction("ErrorPage", "Error",
-                        new {
-                            TypeError = "Ошибка авторизации в системе" ,
-                            Message = "Не удалось авторизоваться в системе. Проверьте введённые данные."
-                        });
                 }
             }
             return View(model);

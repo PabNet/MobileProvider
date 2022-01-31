@@ -26,15 +26,16 @@
     
     @foreach (var user in Model)
     {
-        <tr class="Data" id="@user.Id">
-            <td>@user.Fio</td>
+        <tr>
+            <td class="Data" id="@user.Id">@user.Fio</td>
             <td>@("+375")@user.PhoneNumber</td>
             <td>@user.Email</td>
             <td id="@user.AccountId">
-                <select>
+                @user.Account.Role.RoleName
+                <select id="RoleSelect">
                     @foreach (var role in ViewBag.Roles)
                     {
-                        <option @(user.Account.Role.RoleName.Contains(role) ? "checked=\"checked\"" : "") value="@role">@role</option>
+                        <option value="@user.Id">@role</option>
                     }
                 </select>
             </td>

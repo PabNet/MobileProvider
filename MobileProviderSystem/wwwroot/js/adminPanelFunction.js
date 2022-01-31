@@ -1,11 +1,12 @@
 ﻿$(document).ready(()=>{
 
     let IdUser;
+    let Modal = $("#AdditionalTask");
 
     $('.Data').on("click", function()
     {
         IdUser = $(this).attr('id');
-        $("#AdditionalTask").css("display", "inline-block");
+        Modal.css("display", "block").addClass("Input");
         $("#Table").css("display", "none");
     })
 
@@ -16,14 +17,21 @@
 
     $("#Yes").click( (event) =>
     {
-        $.get('/Functionality/DeleteUser', {UserId: IdUser});
+        postQuery('/Functionality/DeleteUser', {UserId: IdUser});
         hideModal();
     });
 
     function hideModal()
     {
-        $("#AdditionalTask").css("display", "none");
+        Modal.removeClass("Input").css("display", "none");
         $("#Table").css("display", "table");
     }
+
+    $("#RoleSelect").change(() => 
+    {
+        let selectedOption = $("#RoleSelect option:selected");
+        postQuery("/Functionality/UpdateRoleForUser", {UpdateRoleDates: [ selectedOption.val(),selectedOption.text()]});
+    });
     
+
 });
