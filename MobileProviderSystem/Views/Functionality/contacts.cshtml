@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MobileProviderSystem.Models.Entities.SocialNetworkReference>
+﻿@model IEnumerable<MobileProviderSystem.Models.Entities.Contact>
 @{
     ViewData["Title"] = "Контактные данные";
 }
@@ -22,14 +22,14 @@
 
     <tbody>
     
-    @foreach (var socialNetworkReference in Model)
+    @foreach (var contact in Model)
     {
         <tr>
-            <td>@socialNetworkReference.Contact.Address</td>
-            <td>@("+375")@socialNetworkReference.Contact.PhoneNumber</td>
-            <td>@socialNetworkReference.Contact.Email</td>
+            <td>@contact.Address</td>
+            <td>@("+375")@contact.PhoneNumber</td>
+            <td>@contact.Email</td>
             <td>
-                @socialNetworkReference.SocialNetwork.NetworkName: @socialNetworkReference.Reference<br>
+                @contact.SocialNetwork.NetworkName: @contact.SocialNetwork.Reference<br>
             </td>
         </tr>
     }

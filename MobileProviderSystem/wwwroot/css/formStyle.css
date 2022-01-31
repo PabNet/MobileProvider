@@ -8,21 +8,6 @@ legend
     text-align: center;
 }
 
-button[type="submit"]:hover
-{
-    background: #37474f;
-    color: white;
-}
-
-button[type="submit"]
-{
-    background: white;
-    color: #37474f;
-    width: 20em;
-    height: 3em;
-    border-radius: 3em;
-}
-
 input
 {
     color: black;

@@ -12,7 +12,9 @@ namespace MobileProviderSystem.Models.Entities
         
         [Column("Role",TypeName = "VARCHAR(100)")]
         public string RoleName { get; set; } = null!;
-        public List<Account> Accounts { get; set; } = new();
         
+        public List<Account> Accounts { get; set; } = new();
+        public Description Description { get; set; }
+
     }
 }

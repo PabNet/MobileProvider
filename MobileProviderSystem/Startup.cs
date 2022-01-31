@@ -37,14 +37,6 @@ namespace MobileProviderSystem
                                 GetSection(SectionNames.Sections[SectionKeys.DataBases]).
                                 GetSection(SectionNames.Sections[SectionKeys.MobileProviderDataBase]).Value).Value,
                         new MySqlServerVersion(new Version(8, 0, 27)));
-                        /*options.LogTo(new StreamWriter(this.Configuration
-                            .GetSection(SectionNames.Sections[SectionKeys.Files])
-                            .GetSection(SectionNames.Sections[SectionKeys.LogFiles])
-                            .GetSection(SectionNames.Sections[SectionKeys.DataBases])
-                            .GetSection(this.Configuration.
-                                GetSection(SectionNames.Sections[SectionKeys.DataBases]).
-                                GetSection(SectionNames.Sections[SectionKeys.MobileProviderDataBase]).Value).Value)
-                        .WriteLine);*/
                 }
             );
             

@@ -26,26 +26,7 @@ namespace MobileProviderSystem.Controllers
             return View();
         }
 
-        public IActionResult TechnicalSupport()
-        {
-            string role = User.FindFirst(x => x.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
-            IActionResult result = role switch
-            {
-                "Client" => RedirectToAction("ClientTechnicalSupport", "Functionality"),
-                "Admin" => RedirectToAction("ErrorPage", "Error",
-                    new
-                    {
-                        TypeError = "Отказ в доступе",
-                        Message = "У администратора нет доступа к данному разделу"
-                    }),
-                _ => RedirectToAction("ConsultantTechnicalSupport", "Functionality", 
-                    new List<string>(){ role })
 
-            };
-            return result;
-        }
-        
-        
-        
+
     }
 }

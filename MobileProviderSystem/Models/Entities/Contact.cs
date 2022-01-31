@@ -18,7 +18,9 @@ namespace MobileProviderSystem.Models.Entities
         [Column("WorkEmail",TypeName = "TEXT")]
         public string? Email { get; set; }
 
-        public List<SocialNetworkReference> NetworkReferences { get; set; } = new();
+        [Column(TypeName = "INT UNSIGNED")]
+        public uint SocialNetworkId { get; set; }
+        public SocialNetwork SocialNetwork { get; set; }
 
 
     }

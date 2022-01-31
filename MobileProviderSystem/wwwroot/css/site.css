@@ -33,6 +33,21 @@ header, footer
   background-color: #37474f;
 }
 
+button:hover
+{
+  background: #37474f;
+  color: white;
+}
+
+button
+{
+  background: white;
+  color: #37474f;
+  width: 20em;
+  height: 3em;
+  border-radius: 3em;
+}
+
 @media screen and (min-width: 600px)
 {
 

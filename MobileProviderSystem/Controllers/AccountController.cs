@@ -43,7 +43,7 @@ namespace MobileProviderSystem.Controllers
                         {
                             Login = model.Login, Password = model.Password
                         };
-                        Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == "Client");
+                        Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == "Клиент");
                         if (userRole != null)
                             account.Role = userRole;
  

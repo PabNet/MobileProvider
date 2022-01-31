@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -23,29 +26,28 @@ namespace MobileProviderSystem.Controllers
         
         public IActionResult SystemInformation()
         {
+            string roleName = User.FindFirst(u => u.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
+            Role role = this._dbContext.Roles.First(r => r.RoleName == roleName);
+            ViewData["Description"] = this._dbContext.Descriptions.First(d => d.RoleId == role.Id).SystemDescription;
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Администратор")]
         public IActionResult AdminPanel()
         {
-            ViewBag.Roles = this._dbContext.Roles.ToList();
+            List<string> roles = new List<string>();
+            foreach (var role in this._dbContext.Roles.ToList())
+            {
+                if (role.RoleName != "Администратор")
+                {
+                    roles.Add(role.RoleName);
+                }
+            }
+            ViewBag.Roles = roles;
             return View(this._dbContext.Users.Include(u=>u.Account));
         }
-
-        [HttpGet]
-        public IActionResult ClientTechnicalSupport()
-        {
-            return View();
-        }
         
-        [HttpGet]
-        public IActionResult ConsultantTechnicalSupport()
-        {
-            return View();
-        }
-
-        [Authorize(Roles = "Client")]
+        [Authorize(Roles = "Клиент")]
         [HttpGet]
         public IActionResult PersonalArea()
         {
@@ -66,9 +68,49 @@ namespace MobileProviderSystem.Controllers
         
         public IActionResult Contacts()
         {
-            return View(this._dbContext.SocialNetworkReferences.Include(n=>n.Contact)
+            return View(this._dbContext.Contacts.Include(n=>n.SocialNetwork)
                 .Include(n => n.SocialNetwork).ToList());
         }
+
+        public IActionResult DeleteUser(ushort UserId)
+        {
+            this._dbContext.Users.Remove(this._dbContext.Users.First(u=>u.Id == UserId));
+            this._dbContext.SaveChanges();
+
+            return RedirectToAction("MainMenu", "Home");
+        }
+
+        [Authorize(Roles = "Администратор")]
+        public IActionResult RoleEditor()
+        {
+            List<Role> roleList = this._dbContext.Roles.ToList();
+            roleList.RemoveAll(r => r.RoleName == "Администратор" || r.RoleName == "Клиент");
+            return View(roleList);
+        }
+
+        public void DeleteRole(ushort RoleId)
+        {
+            this._dbContext.Roles.Remove(this._dbContext.Roles.First(r => r.Id == RoleId));
+            this._dbContext.SaveChanges(); 
+        }
+
+        public void AddRole(List<string> RoleDates)
+        {
+            Role role = new Role() {RoleName = RoleDates[(int)Indices.Null]};
+            this._dbContext.Roles.Add(role);
+            this._dbContext.Descriptions.Add(new Description() {SystemDescription = RoleDates[(int)Indices.First], Role = role});
+            this._dbContext.SaveChanges();
+        }
+
+        public void UpdateRole(List<string> UpdateDates)
+        {
+            Role role = this._dbContext.Roles.First(r => r.Id == ushort.Parse(UpdateDates[(int)Indices.Null]));
+            role.RoleName = UpdateDates[(int) Indices.First];
+            this._dbContext.Roles.Update(role);
+            this._dbContext.SaveChanges();
+        }
+        
+        
         
         
     }

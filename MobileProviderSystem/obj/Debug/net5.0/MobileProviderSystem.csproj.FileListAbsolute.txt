@@ -44,10 +44,8 @@ D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Account\Registration.cshtml.g.cs
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Home\mainMenu.cshtml.g.cs
-D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Error\errorPage.cshtml.g.cs
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\adminPanel.cshtml.g.cs
-D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\clientTechnicalSupport.cshtml.g.cs
-D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\consultantTechnicalSupport.cshtml.g.cs
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\contacts.cshtml.g.cs
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\personalArea.cshtml.g.cs
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\systemInformation.cshtml.g.cs
+D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\roleEditor.cshtml.g.cs

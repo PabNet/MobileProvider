@@ -1,0 +1,61 @@
+﻿@model List<MobileProviderSystem.Models.Entities.Role>
+@{
+    ViewData["Title"] = "Редактор ролей";
+}
+
+<link rel="stylesheet" href="~/css/roleEditorStyle.css">
+<script src="~/js/roleEditorFunctions.js"></script>
+
+<fieldset id="MainField">
+
+    <legend><h2>Роли пользователей</h2></legend>
+
+    <fieldset>
+
+        <legend>
+            Добавление
+        </legend>
+
+
+        <input placeholder="Название роли" id="RoleName" type="text">
+        <textarea placeholder="Описание роли" id="Description"></textarea>
+        <button id="AddButton">Подтвердить</button>
+
+
+
+    </fieldset>
+
+    <fieldset id="UpdateFieldset">
+
+        <legend>
+            Изменение
+        </legend>
+        
+        @foreach (var role in Model)
+        {
+            <input class="UpdateInputs" type="text" id="@role.Id" value="@role.RoleName"><br>
+        }
+
+
+    </fieldset>
+
+    <fieldset>
+
+        <legend>
+            Удаление
+        </legend>
+
+
+        <select id="RoleListForRemove">
+            @foreach (var role in Model)
+            {
+                <option value="@role.Id">@role.RoleName</option>
+            }
+        </select>
+        <button id="DeleteButton">Подтвердить</button>
+
+
+
+    </fieldset>
+
+</fieldset>

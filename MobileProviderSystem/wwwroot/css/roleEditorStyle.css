@@ -1,0 +1,54 @@
+﻿button:hover
+{
+    cursor: pointer;
+}
+
+legend
+{
+    text-align: center;
+}
+
+input, select, textarea
+{
+    color: black;
+    border: 1px solid black;
+    height: 2em;
+    width: 20em;
+    margin: 0;
+}
+
+fieldset
+{
+    vertical-align: top;
+    width: 10em;
+    border: 0.2em solid black;
+    margin: 1em 1.2em 0 1.7em;
+    display: inline;
+}
+
+#MainField
+{
+    margin: 0.5em 3em 0.5em;
+    width: 90%;
+}
+
+textarea
+{
+    height: 5em;
+}
+
+button:hover
+{
+    background: #37474f;
+    color: white;
+}
+
+button
+{
+    background: white;
+    color: #37474f;
+    width: 10em;
+    height: 2em;
+    border-radius: 3em;
+    margin: 1em 5em 0;
+}
