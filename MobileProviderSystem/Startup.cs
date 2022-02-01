@@ -1,5 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MobileProviderSystem.Enums;
 using MobileProviderSystem.AdditionalOptions;
+using MobileProviderSystem.Controllers.Requirements;
 using MobileProviderSystem.Data;
 
 namespace MobileProviderSystem
@@ -23,6 +28,8 @@ namespace MobileProviderSystem
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<IAuthorizationHandler, RoleHandler>();
+
             services.AddDbContext<MobileProviderContext>(options =>
                 {
                     options.UseMySql(this.Configuration
@@ -40,10 +47,17 @@ namespace MobileProviderSystem
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString(this.Configuration.GetSection(SectionNames.Sections[SectionKeys.Routes])
                         .GetSection(SectionNames.Sections[SectionKeys.AuthorizationRoute]).Value.Substring(1));
                     options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString(this.Configuration.GetSection(SectionNames.Sections[SectionKeys.Routes])
-                        .GetSection(SectionNames.Sections[SectionKeys.AuthorizationRoute]).Value.Substring(1));
+                        .GetSection(SectionNames.Sections[SectionKeys.ErrorRoute]).Value);
                 });
 
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(Policies.RoleRequirement,
+                    policy => policy.Requirements.Add(new RoleRequirement()));
+            });
+            
             services.AddControllersWithViews();
+            
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

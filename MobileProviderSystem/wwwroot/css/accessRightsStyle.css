@@ -1,0 +1,13 @@
+﻿fieldset
+{
+    vertical-align: top;
+    width: 40em;
+    border: 0.2em solid black;
+    margin: 0.5em 25em 1em;
+    display: inline-block;
+}
+
+legend
+{
+    text-align: center;
+}

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MobileProviderSystem.Models.Entities.Role>
+@{
+    ViewData["Title"] = "Настройки доступа";
+}
+
+<link rel="stylesheet" href="~/css/accessRightsStyle.css">
+<script src="~/js/roleEditorFunctions.js"></script>
+
+<fieldset>
+    
+    <legend>Права доступа</legend>
+
+    @foreach (var role in Model)
+                {
+                    <input type="checkbox" value="@role.RoleName"
+                           @{
+                               foreach (var roleInList in ViewBag.PageRoles)
+                               {
+                                   if (role.RoleName.Contains(roleInList))
+                                   {
+                                       @:checked
+                                       break;
+                                   }
+                               }
+                           }>@role.RoleName
+                }
+
+    <button id="SaveButton">Сохранить</button>
+    
+    <input value="@ViewBag.PageName" id="PageName" style="display: none;">
+
+</fieldset>
+
+
+

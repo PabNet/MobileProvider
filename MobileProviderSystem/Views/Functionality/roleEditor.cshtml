@@ -47,15 +47,35 @@
 
 
         <select id="RoleListForRemove">
+            <option disabled>Выберите роль</option>
             @foreach (var role in Model)
             {
                 <option value="@role.Id">@role.RoleName</option>
             }
         </select>
         <button id="DeleteButton">Подтвердить</button>
-
-
-
+        
+    </fieldset>
+    
+    <fieldset>
+    
+        <legend>
+            Настройки доступа
+        </legend>
+        
+        
+        <label>Страницы</label>
+        <form action="~/Functionality/AccessRights" method="get">
+            <select name="PageName">
+                @foreach (var webPage in ViewBag.Pages)
+                        {
+                            <option value="@webPage">@webPage</option>
+                        }
+                    </select>
+                    <button type="submit" id="AccessButton">Настроить</button>
+        </form>
+    
     </fieldset>
 
 </fieldset>
+

@@ -49,3 +49,8 @@ D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\personalArea.cshtml.g.cs
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\systemInformation.cshtml.g.cs
 D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\roleEditor.cshtml.g.cs
+D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Error\accessError.cshtml.g.cs
+D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Error\loginError.cshtml.g.cs
+D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Error\registrationError.cshtml.g.cs
+D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Error\_ErrorLayout.cshtml.g.cs
+D:\Developed_Projects\Rider\MobileProviderSystem\MobileProviderSystem\obj\Debug\net5.0\Razor\Views\Functionality\accessRights.cshtml.g.cs

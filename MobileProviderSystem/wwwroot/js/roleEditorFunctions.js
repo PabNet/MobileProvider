@@ -15,6 +15,15 @@
     {
         postQuery("/Functionality/UpdateRole/", {UpdateDates: [event.target.id, event.target.value]})
     });
+
+    $("#SaveButton").click(()=>
+    {
+        let checkboxes = [];
+        $('input:checkbox:checked').each(function(){
+            checkboxes.push(this.value);
+        });
+        postQuery("/Functionality/UpdateRequirement", {PageName: $("#PageName").val(), Roles: checkboxes});
+    });
     
     
 });

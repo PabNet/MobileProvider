@@ -33,6 +33,7 @@
             <td id="@user.AccountId">
                 @user.Account.Role.RoleName
                 <select id="RoleSelect">
+                    <option disabled selected>Выберите роль</option>
                     @foreach (var role in ViewBag.Roles)
                     {
                         <option value="@user.Id">@role</option>

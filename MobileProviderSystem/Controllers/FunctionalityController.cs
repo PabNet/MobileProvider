@@ -1,24 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MobileProviderSystem.AdditionalOptions;
+using MobileProviderSystem.Controllers.Requirements;
 using MobileProviderSystem.Data;
 using MobileProviderSystem.Enums;
 using MobileProviderSystem.Models.Entities;
 
 namespace MobileProviderSystem.Controllers
 {
+    
+    
     public class FunctionalityController : Controller
     {
         private readonly MobileProviderContext _dbContext;
-        
-        public FunctionalityController(MobileProviderContext dbContext)
+        private readonly IConfiguration _configuration;
+
+
+        public FunctionalityController(MobileProviderContext dbContext, IConfiguration configuration)
         {
+            this._configuration = configuration;
             this._dbContext = dbContext;
         }
         
+        [Authorize(Policy = Policies.RoleRequirement)]
         public IActionResult SystemInformation()
         {
             string roleName = User.FindFirst(u => u.Type == ClaimsIdentity.DefaultRoleClaimType).Value;
@@ -27,13 +37,13 @@ namespace MobileProviderSystem.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Администратор")]
+        [Authorize(Roles = Roles.AdminRole)]
         public IActionResult AdminPanel()
         {
-            List<string> roles = new List<string>() { "" };
+            List<string> roles = new List<string>();
             foreach (var role in this._dbContext.Roles.ToList())
             {
-                if (role.RoleName != "Администратор")
+                if (role.RoleName != Roles.AdminRole)
                 {
                     roles.Add(role.RoleName);
                 }
@@ -42,7 +52,7 @@ namespace MobileProviderSystem.Controllers
             return View(this._dbContext.Users.Include(u=>u.Account));
         }
         
-        [Authorize(Roles = "Клиент")]
+        [Authorize(Policy = Policies.RoleRequirement)]
         [HttpGet]
         public IActionResult PersonalArea()
         {
@@ -52,7 +62,7 @@ namespace MobileProviderSystem.Controllers
                 .Include(u=>u.Account)
                 .First(u=>u.Account == account));
         }
-
+        
         [HttpPost]
         public IActionResult PersonalArea(User user)
         {
@@ -61,6 +71,7 @@ namespace MobileProviderSystem.Controllers
             return RedirectToAction("MainMenu", "Home");
         }
         
+        [Authorize(Policy = Policies.RoleRequirement)]
         public IActionResult Contacts()
         {
             return View(this._dbContext.Contacts.Include(n=>n.SocialNetwork)
@@ -76,11 +87,12 @@ namespace MobileProviderSystem.Controllers
             
         }
 
-        [Authorize(Roles = "Администратор")]
+        [Authorize(Roles = Roles.AdminRole)]
         public IActionResult RoleEditor()
         {
             List<Role> roleList = this._dbContext.Roles.ToList();
-            roleList.RemoveAll(r => r.RoleName == "Администратор" || r.RoleName == "Клиент");
+            roleList.RemoveAll(r => r.RoleName == Roles.AdminRole || r.RoleName == Roles.ClientRole);
+            ViewBag.Pages = Pages.Names.Values;
             return View(roleList);
         }
 
@@ -112,6 +124,20 @@ namespace MobileProviderSystem.Controllers
             User user = this._dbContext.Users.First(u => u.Id == ushort.Parse(UpdateRoleDates[(int) Indices.Null]));
             this._dbContext.Database
                 .ExecuteSqlInterpolated($"UPDATE Accounts SET RoleId = {role.Id} WHERE AccountId = {user.AccountId}");
+        }
+        
+        [HttpGet]
+        public IActionResult AccessRights(string PageName)
+        {
+            ViewBag.PageRoles = RoleRequirement.RoleAccess[PageName];
+            ViewBag.PageName = PageName;
+            return View(this._dbContext.Roles.ToList());
+        }
+
+        public void UpdateRequirement(string PageName, List<string> Roles)
+        {
+            RoleRequirement.RoleAccess[PageName].Clear();
+            RoleRequirement.RoleAccess[PageName].AddRange(Roles);
         }
         
         

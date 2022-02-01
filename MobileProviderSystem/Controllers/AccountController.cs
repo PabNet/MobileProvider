@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -31,41 +32,59 @@ namespace MobileProviderSystem.Controllers
         public async Task<IActionResult> Registration(RegistrationModel model)
         {
             IActionResult result = View();
-            if (ModelState.IsValid)
+            try
             {
-                Account account = await _context.Accounts.FirstOrDefaultAsync(u => u.Login == model.Login);
-                if (account == null)
+                if (ModelState.IsValid)
                 {
-                    account = new Account()
+                    Account account = await _context.Accounts.FirstOrDefaultAsync(u => u.Login == model.Login);
+                    if (account == null)
                     {
-                        Login = model.Login, Password = model.Password
-                    };
-                    Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == "Клиент");
-                    if (userRole != null)
-                        account.Role = userRole;
-             
-                    _context.Accounts.Add(account);
-                    if (await _context.SaveChangesAsync() != 0)
-                    {
-                        User user = new User()
+                        account = new Account()
                         {
-                            Email = model.Email,
-                            PhoneNumber = model.PhoneNumber,
-                            Fio = model.Fio,
-                            Account = account
+                            Login = model.Login, Password = model.Password
                         };
-                        _context.Users.Add(user);
-            
+                        Role userRole = await _context.Roles.FirstOrDefaultAsync(r => r.RoleName == "Клиент");
+                        if (userRole != null)
+                            account.Role = userRole;
+             
+                        _context.Accounts.Add(account);
                         if (await _context.SaveChangesAsync() != 0)
                         {
-                            await Authenticate(account);
+                            User user = new User()
+                            {
+                                Email = model.Email,
+                                PhoneNumber = model.PhoneNumber,
+                                Fio = model.Fio,
+                                Account = account
+                            };
+                            _context.Users.Add(user);
+            
+                            if (await _context.SaveChangesAsync() != 0)
+                            {
+                                await Authenticate(account);
                                             
-                            result =  RedirectToAction("Authorization", "Account");
+                                result =  RedirectToAction("Authorization", "Account");
+                            }
+                            else
+                            {
+                                throw new Exception();
+                            }
                         }
-                                        
-                    }
+                        else
+                        {
+                            throw new Exception();
+                        }
 
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
                 }
+            }
+            catch (Exception)
+            {
+                result = RedirectToAction("RegistrationError", "Error");
             }
                             
 
@@ -91,6 +110,10 @@ namespace MobileProviderSystem.Controllers
                     await Authenticate(user);
  
                     return RedirectToAction("MainMenu", "Home");
+                }
+                else
+                {
+                    return RedirectToAction("LoginError", "Error");
                 }
             }
             return View(model);

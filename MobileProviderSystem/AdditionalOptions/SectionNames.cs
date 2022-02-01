@@ -13,7 +13,7 @@ namespace MobileProviderSystem.AdditionalOptions
             [SectionKeys.Routes] = "Routes",
             [SectionKeys.ErrorRoute] = "Error",
             [SectionKeys.DefaultRoute] = "Default",
-            [SectionKeys.AuthorizationRoute] = "Authorization"
+            [SectionKeys.AuthorizationRoute] = "Authorization",
         };
     }
 }
